@@ -3,6 +3,7 @@ const app = express();
 import dotenv from "dotenv";
 dotenv.config();
 import "express-async-errors";
+import path from "path";
 
 // db
 import connectDB from "./db/connect.js";
@@ -18,6 +19,22 @@ import errorHandlerMiddleware from "./middleware/error-handler.js";
 import authenticateUser from "./middleware/auth.js";
 
 app.use(express.json());
+
+// Your code
+if (process.env.NODE_ENV === "production") {
+    const __dirname = path.resolve();
+    console.log("bruh", __dirname);
+    app.use(express.static(path.resolve(__dirname, 'client', 'build')));
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'), function (err) {
+            if (err) {
+                res.status(500).send(err)
+            }
+        });
+    })
+}
+// Your code
+
 
 app.use("/", homeRouter);
 app.use("/api/v1/auth", authRouter);

@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div className="dashboard-page-wrapper page-wrapper">
       <div className="blogs-wrapper">
-        {allBlogs.map((blog) => (
+        {allBlogs?.map((blog) => (
           <Blog key={blog._id} blog={blog} />
         ))}
       </div>
