@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     getBlogs();
-  }, [allBlogs]);
+  }, []);
 
   return (
     <div className="dashboard-page-wrapper page-wrapper">

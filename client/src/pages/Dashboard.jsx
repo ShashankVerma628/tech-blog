@@ -11,7 +11,7 @@ const Dashboard = () => {
   // Fetch all the blogs of a user whenever there's a change of user
   useEffect(() => {
     getAllBlogs();
-  }, [user]);
+  }, []);
 
   return (
     <div className="dashboard-page-wrapper page-wrapper">
