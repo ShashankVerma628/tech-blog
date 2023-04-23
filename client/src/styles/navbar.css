@@ -1,0 +1,15 @@
+.navbar .navbar-list {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.navbar .navbar-list .navbar-link {
+    text-decoration: none;
+    color: #fff;
+
+}
+
+.navbar-link.active {
+    border-bottom: 1px solid #fff;
+}

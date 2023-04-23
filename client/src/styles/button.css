@@ -1,0 +1,14 @@
+.btn {
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    background-color: rgb(63, 63, 169);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s all ease-in-out;
+}
+
+.btn:hover, .btn:focus {
+    transform: scale(1.1);
+}

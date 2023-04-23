@@ -1,0 +1,16 @@
+.add-blog-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.add-blog-container label {
+    text-align: left;
+}
+
+.blogs-wrapper {
+    display: flex;
+    gap: 2em;
+    flex-direction: column;
+}
