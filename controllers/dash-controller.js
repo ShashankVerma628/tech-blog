@@ -5,7 +5,7 @@ import StatusCodes from "http-status-codes";
 // get => /dashboard {to get all blogs of a particular user}
 const getAllBlogs = async (req, res) => {
     const blogs = await Blog.find({ createdBy: req.user.userId });
-    res.status(StatusCodes.OK).json({ count: blogs.length, blogs });
+    res.status(StatusCodes.OK).json({ count: blogs?.length, blogs });
 }
 
 //  post => /dashboard {to create a blog by a userF}
