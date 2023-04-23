@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === "production") {
 // Your code
 
 
-app.use("/", homeRouter);
+app.use("/home", homeRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/dashboard", authenticateUser, dashRouter);
 
