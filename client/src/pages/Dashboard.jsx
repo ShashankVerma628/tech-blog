@@ -20,7 +20,7 @@ const Dashboard = () => {
       </div>
       <div className="blogs-wrapper">
         <h3>{userBlogs?.length} Blogs Found : </h3>
-        {userBlogs.map((blog) => (
+        {userBlogs?.map((blog) => (
           <Blog key={blog._id} blog={blog} />
         ))}
       </div>
