@@ -18,11 +18,14 @@ import {
     GET_BLOGS_SUCCESS,
     ADD_BLOG_BEGIN,
     ADD_BLOG_SUCCESS,
-    ADD_BLOG_ERROR
+    ADD_BLOG_ERROR,
+    GET_BLOG_BEGIN,
+    GET_BLOG_SUCCESS,
+    GET_BLOG_ERROR
 } from "./actions";
 
-const user = JSON.parse(localStorage.getItem("user"));
-const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user")) || null;
+const token = localStorage.getItem("token") || null;
 
 const initialState = {
     isLoading: false,
@@ -33,6 +36,10 @@ const initialState = {
     token,
     userBlogs: [],
     allBlogs: [],
+    singleBlog: null,
+    showFloatAlert: false,
+    floatAlertType: "",
+    floatAlertText: ""
 }
 
 const appContext = createContext();
@@ -41,6 +48,7 @@ const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const backendURL = "https://tech-blog-sand-pi.vercel.app";
+    // const backendURL = "http://localhost:5000";
 
     const authDashFetch = axios.create({
         baseURL: `${backendURL}`
@@ -74,6 +82,14 @@ const AppProvider = ({ children }) => {
         setTimeout(() => {
             dispatch({ type: CLEAR_ALERT });
         }, 4000);
+    }
+
+    const displayFloatAlert = () => {
+        console.log("Display float alert");
+    }
+
+    const clearFloatAlert = () => {
+        console.log("clear float alert");
     }
 
     const addUserToLocalStorage = ({ user, token }) => {
@@ -133,7 +149,6 @@ const AppProvider = ({ children }) => {
     }
 
     const logOutUser = async () => {
-        console.log("user logout");
         dispatch({ type: LOGOUT_USER });
         removeUserFromLocalStorage();
     }
@@ -160,6 +175,7 @@ const AppProvider = ({ children }) => {
             dispatch({ type: GET_BLOGS_SUCCESS, payload: { blogs } });
         } catch (error) {
             console.log(error);
+            displayFloatAlert();
         }
     }
 
@@ -178,6 +194,20 @@ const AppProvider = ({ children }) => {
         clearAlert();
     }
 
+    // to get a single blog
+    const getSingleBlog = async (id) => {
+        dispatch({ type: GET_BLOG_BEGIN });
+        try {
+            let { data: { blog } } = await axios.post(`${backendURL}/api/v1/blog/${id}`);
+            blog = blog[0];
+            dispatch({ type: GET_BLOG_SUCCESS, payload: { blog } })
+        } catch (error) {
+            console.log(error);
+            dispatch({ type: GET_BLOG_ERROR });
+        }
+        clearFloatAlert();
+    };
+
     return <appContext.Provider value={{
         ...state,
         displayAlert,
@@ -186,7 +216,8 @@ const AppProvider = ({ children }) => {
         logOutUser,
         getBlogs,
         getAllBlogs, // for dashboard
-        addBlog
+        addBlog,
+        getSingleBlog
     }}>
         {children}
     </appContext.Provider>

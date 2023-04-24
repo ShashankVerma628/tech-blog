@@ -14,7 +14,7 @@ const Home = () => {
     <div className="dashboard-page-wrapper page-wrapper">
       <div className="blogs-wrapper">
         {allBlogs?.map((blog) => (
-          <Blog key={blog._id} blog={blog} />
+          <Blog key={blog?._id} blog={blog} />
         ))}
       </div>
     </div>

@@ -23,3 +23,8 @@ export const GET_BLOGS_SUCCESS = "GET_BLOGS_SUCCESS";
 export const ADD_BLOG_BEGIN = "ADD_BLOG_BEGIN";
 export const ADD_BLOG_SUCCESS = "ADD_BLOG_SUCCESS";
 export const ADD_BLOG_ERROR = "ADD_BLOG_ERROR";
+
+// actions to get a single blog
+export const GET_BLOG_BEGIN = "GET_BLOG_BEGIN";
+export const GET_BLOG_SUCCESS = "GET_BLOG_SUCCESS";
+export const GET_BLOG_ERROR = "GET_BLOG_ERROR";

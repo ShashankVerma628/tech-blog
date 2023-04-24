@@ -13,6 +13,7 @@ import connectDB from "./db/connect.js";
 import homeRouter from "./routes/home-route.js";
 import authRouter from "./routes/auth-route.js";
 import dashRouter from "./routes/dash-route.js";
+import blogRouter from "./routes/blog-route.js";
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
@@ -28,7 +29,6 @@ app.use(cors(corsOptions));
 // Your code
 if (process.env.NODE_ENV === "production") {
     const __dirname = path.resolve();
-    // console.log("bruh", __dirname);
     app.use(express.static(path.resolve(__dirname, 'client', 'build')));
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'), function (err) {
@@ -44,6 +44,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api/v1", homeRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/dashboard", authenticateUser, dashRouter);
+app.use("/api/v1/blog", blogRouter);
 
 // error handler middleware
 app.use(notFoundMiddleware);

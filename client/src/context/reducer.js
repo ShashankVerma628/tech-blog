@@ -15,6 +15,9 @@ import {
     ADD_BLOG_BEGIN,
     ADD_BLOG_SUCCESS,
     ADD_BLOG_ERROR,
+    GET_BLOG_BEGIN,
+    GET_BLOG_SUCCESS,
+    GET_BLOG_ERROR
 } from "./actions";
 
 import { initialState } from "./appContext";
@@ -163,6 +166,31 @@ const reducer = (state, action) => {
             showAlert: true,
             alertType: "danger",
             alertText: action.payload.msg
+        }
+    }
+
+    if (action.type === GET_BLOG_BEGIN) {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }
+
+    if (action.type === GET_BLOG_SUCCESS) {
+        return {
+            ...state,
+            isLoading: false,
+            singleBlog: action.payload.blog
+        }
+    }
+
+    if (action.type === GET_BLOG_ERROR) {
+        return {
+            ...state,
+            isLoading: false,
+            showFloatAlert: true,
+            floatAlertType: "danger",
+            floatAlertText: action.payload.data.msg
         }
     }
 }

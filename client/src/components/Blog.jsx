@@ -1,19 +1,20 @@
 import "../styles/blog.css";
+import { Link } from "react-router-dom";
 
-const Blog = ({ blog: { title, content } }) => {
+const Blog = ({ blog }) => {
   return (
-    <div className="blog-container">
+    <Link to={`/blog/${blog?._id}`} className="blog-container">
       <div className="blog-header">
-        <h3 className="blog-title">{title}</h3>
+        <h3 className="blog-title">{blog?.title}</h3>
         <p className="blog-details">
-          <span className="blog-author">Posted By:  kraken</span>
+          <span className="blog-author">Posted By: kraken</span>
           <span className="blg-date">23/43/12</span>
         </p>
       </div>
       <div className="blog-content-container">
-        <p className="blog-content">{content}</p>
+        <p className="blog-content">{blog?.content}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

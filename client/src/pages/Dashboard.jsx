@@ -19,9 +19,11 @@ const Dashboard = () => {
         <AddBlog />
       </div>
       <div className="blogs-wrapper">
-        <h3>{userBlogs?.length} Blogs Found : </h3>
+        <h3>
+          {userBlogs?.length} Blog{userBlogs?.length > 1 ? "s" : ""} Found :{" "}
+        </h3>
         {userBlogs?.map((blog) => (
-          <Blog key={blog._id} blog={blog} />
+          <Blog key={blog?._id} blog={blog} />
         ))}
       </div>
     </div>
