@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import "express-async-errors";
 import path from "path";
+import cors from "cors";
 
 // db
 import connectDB from "./db/connect.js";
@@ -18,12 +19,16 @@ import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 import authenticateUser from "./middleware/auth.js";
 
+var corsOptions = {
+    origin: 'http://localhost:3000',
+}
 app.use(express.json());
+app.use(cors(corsOptions));
 
 // Your code
 if (process.env.NODE_ENV === "production") {
     const __dirname = path.resolve();
-    console.log("bruh", __dirname);
+    // console.log("bruh", __dirname);
     app.use(express.static(path.resolve(__dirname, 'client', 'build')));
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'), function (err) {
@@ -36,7 +41,7 @@ if (process.env.NODE_ENV === "production") {
 // Your code
 
 
-app.use("/home", homeRouter);
+app.use("/api/v1", homeRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/dashboard", authenticateUser, dashRouter);
 

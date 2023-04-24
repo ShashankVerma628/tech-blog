@@ -40,8 +40,10 @@ const appContext = createContext();
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    const backendURL = "http://localhost:5000";
+
     const authDashFetch = axios.create({
-        baseURL: "dashboard"
+        baseURL: `${backendURL}`
     });
 
 
@@ -87,7 +89,7 @@ const AppProvider = ({ children }) => {
     const registerUser = async (currentUser) => {
         dispatch({ type: REGISTER_USER_BEGIN })
         try {
-            const response = await axios.post("/api/v1/auth/register", currentUser);
+            const response = await axios.post(`${backendURL}/api/v1/auth/register`, currentUser);
 
             const { user, token } = response.data;
             dispatch({
@@ -111,7 +113,7 @@ const AppProvider = ({ children }) => {
     const loginUser = async (currentUser) => {
         dispatch({ type: LOGIN_USER_BEGIN });
         try {
-            const response = await axios.post("/api/v1/auth/login", currentUser);
+            const response = await axios.post(`${backendURL}/api/v1/auth/login`, currentUser);
 
             const { user, token } = response.data;
 
@@ -131,6 +133,7 @@ const AppProvider = ({ children }) => {
     }
 
     const logOutUser = async () => {
+        console.log("user logout");
         dispatch({ type: LOGOUT_USER });
         removeUserFromLocalStorage();
     }
@@ -140,11 +143,7 @@ const AppProvider = ({ children }) => {
     const getAllBlogs = async () => {
         dispatch({ type: GET_USER_BLOGS_BEGIN });
         try {
-            // const { data: { count, blogs } } = await authDashFetch.get("/");
-            const response = await authDashFetch.get("/");
-            const { count, blogs } = response.data;
-            console.log("in try", response);
-
+            const { data: { count, blogs } } = await authDashFetch.post("/dashboard");
             dispatch({ type: GET_USER_BLOGS_SUCCESS, payload: { count, blogs } })
 
         } catch (error) {
@@ -156,8 +155,7 @@ const AppProvider = ({ children }) => {
     const getBlogs = async () => {
         dispatch({ type: GET_BLOGS_BEGIN });
         try {
-            const response = await axios.get("home");
-            console.log("in try", response);
+            const response = await axios.post(`${backendURL}/api/v1/get-blogs`);
             const { blogs } = response.data;
             dispatch({ type: GET_BLOGS_SUCCESS, payload: { blogs } });
         } catch (error) {
@@ -168,7 +166,7 @@ const AppProvider = ({ children }) => {
     const addBlog = async (blog) => {
         dispatch({ type: ADD_BLOG_BEGIN });
         try {
-            const { data } = await authDashFetch.post("/", blog);
+            const { data } = await authDashFetch.post("dashboard/add-blog", blog);
             dispatch({ type: ADD_BLOG_SUCCESS });
             getAllBlogs();
         } catch (error) {
