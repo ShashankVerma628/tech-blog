@@ -208,6 +208,13 @@ const AppProvider = ({ children }) => {
         clearFloatAlert();
     };
 
+    // to get the user of a blog
+    const getUserBlog = async (id) => {
+        const { data } = await axios.post(`${backendURL}/api/v1/blog/user/${id}`);
+        const { username } = data;
+        return username;
+    }
+
     return <appContext.Provider value={{
         ...state,
         displayAlert,
@@ -217,7 +224,8 @@ const AppProvider = ({ children }) => {
         getBlogs,
         getAllBlogs, // for dashboard
         addBlog,
-        getSingleBlog
+        getSingleBlog,
+        getUserBlog
     }}>
         {children}
     </appContext.Provider>
