@@ -41,7 +41,7 @@ const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const authDashFetch = axios.create({
-        baseURL: "/dashboard"
+        baseURL: "dashboard"
     });
 
 
@@ -140,9 +140,12 @@ const AppProvider = ({ children }) => {
     const getAllBlogs = async () => {
         dispatch({ type: GET_USER_BLOGS_BEGIN });
         try {
-            const { data: { count, blogs } } = await authDashFetch.get("/");
+            // const { data: { count, blogs } } = await authDashFetch.get("/");
+            const response = await authDashFetch.get("/");
+            const { count, blogs } = response.data;
+            console.log("in try", response);
 
-            dispatch({ type: GET_USER_BLOGS_SUCCESS, payload: { blogs } })
+            dispatch({ type: GET_USER_BLOGS_SUCCESS, payload: { count, blogs } })
 
         } catch (error) {
             logOutUser();
@@ -153,7 +156,8 @@ const AppProvider = ({ children }) => {
     const getBlogs = async () => {
         dispatch({ type: GET_BLOGS_BEGIN });
         try {
-            const response = await axios.get("/home");
+            const response = await axios.get("home");
+            console.log("in try", response);
             const { blogs } = response.data;
             dispatch({ type: GET_BLOGS_SUCCESS, payload: { blogs } });
         } catch (error) {
