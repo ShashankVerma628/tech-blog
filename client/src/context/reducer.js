@@ -17,7 +17,10 @@ import {
     ADD_BLOG_ERROR,
     GET_BLOG_BEGIN,
     GET_BLOG_SUCCESS,
-    GET_BLOG_ERROR
+    GET_BLOG_ERROR,
+    ADD_COMMENT_BEGIN,
+    ADD_COMMENT_SUCCESS,
+    ADD_COMMENT_ERROR
 } from "./actions";
 
 import { initialState } from "./appContext";
@@ -191,6 +194,33 @@ const reducer = (state, action) => {
             showFloatAlert: true,
             floatAlertType: "danger",
             floatAlertText: action.payload.data.msg
+        }
+    }
+
+    if (action.type === ADD_COMMENT_BEGIN) {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }
+
+    if (action.type === ADD_COMMENT_SUCCESS) {
+        return {
+            ...state,
+            isLoading: false,
+            showAlert: true,
+            alertType: "success",
+            alertText: "Your comment has been Added, Redirecting..."
+        }
+    }
+
+    if (action.type === ADD_COMMENT_ERROR) {
+        return {
+            ...state,
+            isLoading: false,
+            showAlert: true,
+            alertType: "danger",
+            alertText: action.payload.msg
         }
     }
 }

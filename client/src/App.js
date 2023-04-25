@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home, Register, Login, ErrorPage, Dashboard, ContactUs, BlogPage } from "./pages";
+import { Home, Register, Login, ErrorPage, Dashboard, ContactUs, BlogPage, CommentPage } from "./pages";
 import { Navigation, Footer, ProtectedRoute } from "./components";
 
 function App() {
@@ -18,6 +18,11 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="/blog/:id" element={<BlogPage />} />
+            <Route path="/add-comment/:blogId" element={
+              <ProtectedRoute>
+                <CommentPage />
+              </ProtectedRoute>
+            } />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>

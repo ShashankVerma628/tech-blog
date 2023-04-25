@@ -6,5 +6,6 @@ import Alert from "./Alert";
 import ProtectedRoute from "./ProtectedRoute";
 import Blog from "./Blog";
 import AddBlog from "./AddBlog";
+import BlogDetails from "./BlogDetails";
 
-export { Navigation, Footer, Logo, FormInput, Alert, ProtectedRoute, Blog, AddBlog };
+export { Navigation, Footer, Logo, FormInput, Alert, ProtectedRoute, Blog, AddBlog, BlogDetails };

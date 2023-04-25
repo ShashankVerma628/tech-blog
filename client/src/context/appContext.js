@@ -21,7 +21,10 @@ import {
     ADD_BLOG_ERROR,
     GET_BLOG_BEGIN,
     GET_BLOG_SUCCESS,
-    GET_BLOG_ERROR
+    GET_BLOG_ERROR,
+    ADD_COMMENT_BEGIN,
+    ADD_COMMENT_SUCCESS,
+    ADD_COMMENT_ERROR
 } from "./actions";
 
 const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -189,7 +192,7 @@ const AppProvider = ({ children }) => {
             if (error.response.status === 401) {
                 return;
             }
-            dispatch({ type: ADD_BLOG_ERROR, payload: error.response.data.msg });
+            dispatch({ type: ADD_BLOG_ERROR, payload: { msg: error.response.data.msg } });
         }
         clearAlert();
     }
@@ -215,6 +218,22 @@ const AppProvider = ({ children }) => {
         return username;
     }
 
+
+    // add a comment 
+    const addComment = async (comment) => {
+        dispatch({ type: ADD_COMMENT_BEGIN });
+        try {
+            const { data } = await authDashFetch.post("/api/v1/comment/add-comment", comment);
+            dispatch({ type: ADD_COMMENT_SUCCESS });
+        } catch (error) {
+            if (error.response.status === 401) {
+                return;
+            }
+            dispatch({ type: ADD_COMMENT_ERROR, payload: error.response.data.msg });
+        }
+        clearAlert();
+    }
+
     return <appContext.Provider value={{
         ...state,
         displayAlert,
@@ -225,7 +244,8 @@ const AppProvider = ({ children }) => {
         getAllBlogs, // for dashboard
         addBlog,
         getSingleBlog,
-        getUserBlog
+        getUserBlog,
+        addComment
     }}>
         {children}
     </appContext.Provider>

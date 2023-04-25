@@ -23,7 +23,7 @@
     text-align: center;
 }
 
-.form-container .alert {
+.alert {
     text-align: center;
     padding: 0.5em;
     text-transform: capitalize;
@@ -31,12 +31,12 @@
 
 }
 
-.form-container .alert.danger {
+.alert.danger {
     background-color: rgb(248, 211, 211);
     color: rgb(208, 51, 51);
 }
 
-.form-container .alert.success {
+.alert.success {
     background-color: rgb(191, 249, 191);
     color: green;
 }

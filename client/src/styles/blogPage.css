@@ -1,0 +1,12 @@
+.comment-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 2rem 1rem;
+}
+
+.comment-btn-container .btn {
+    display: block;
+    width: 80%;
+}

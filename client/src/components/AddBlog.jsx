@@ -27,9 +27,10 @@ const AddBlog = () => {
 
     if (!title || !content) {
       displayAlert();
+    } else {
+      addBlog(values);
+      clearForm();
     }
-    addBlog(values);
-    clearForm();
   };
   return (
     <div className="form-wrapper">

@@ -14,6 +14,7 @@ import homeRouter from "./routes/home-route.js";
 import authRouter from "./routes/auth-route.js";
 import dashRouter from "./routes/dash-route.js";
 import blogRouter from "./routes/blog-route.js";
+import commentRouter from "./routes/comment-route.js";
 
 // middleware
 import notFoundMiddleware from "./middleware/not-found.js";
@@ -45,6 +46,7 @@ app.use("/api/v1", homeRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/dashboard", authenticateUser, dashRouter);
 app.use("/api/v1/blog", blogRouter);
+app.use("/api/v1/comment", commentRouter);
 
 // error handler middleware
 app.use(notFoundMiddleware);

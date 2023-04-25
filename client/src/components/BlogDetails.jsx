@@ -1,11 +1,10 @@
 import "../styles/blog.css";
-import { Link } from "react-router-dom";
 import moment from "moment";
 
 import { useAppContext } from "../context/appContext";
 import { useEffect, useState } from "react";
 
-const Blog = ({ blog }) => {
+const BlogDetails = ({ blog }) => {
   const [userName, setUserName] = useState("");
 
   const { getUserBlog } = useAppContext();
@@ -25,7 +24,7 @@ const Blog = ({ blog }) => {
   });
 
   return (
-    <Link to={`/blog/${blog?._id}`} className="blog-container">
+    <div className="blog-container">
       <div className="blog-header">
         <h3 className="blog-title">{blog?.title}</h3>
         <p className="blog-details">
@@ -36,8 +35,8 @@ const Blog = ({ blog }) => {
       <div className="blog-content-container">
         <p className="blog-content">{blog?.content}</p>
       </div>
-    </Link>
+    </div>
   );
 };
 
-export default Blog;
+export default BlogDetails;

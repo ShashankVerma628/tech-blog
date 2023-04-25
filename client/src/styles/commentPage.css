@@ -1,0 +1,44 @@
+.page-title {
+    text-align: center;
+}
+
+.blog-comment-container {
+    width: 80%;
+    margin: 2rem auto;
+    border: 1px solid #000;
+    box-shadow: 5px 5px #000;
+    border-radius: 10px;
+    padding: 2em;
+}
+
+.comment-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2em;
+}
+
+.comment-form .comment-input-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-size: 1.1rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 0.5em;
+    outline: none;
+    height: 80px;
+}
+
+@media(max-width: 600px) {
+    .comment-form {
+        flex-direction: column;
+    }
+
+    .comment-form .comment-input-container {
+        width: 100%;
+    }
+}

@@ -5,5 +5,6 @@ import ErrorPage from "./ErrorPage";
 import Dashboard from "./Dashboard";
 import ContactUs from "./ContactUs";
 import BlogPage from "./BlogPage";
+import CommentPage from "./CommentPage";
 
-export { Home, Register, Login, ErrorPage, Dashboard, ContactUs, BlogPage };
+export { Home, Register, Login, ErrorPage, Dashboard, ContactUs, BlogPage, CommentPage };

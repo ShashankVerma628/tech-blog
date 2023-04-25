@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Blog } from "../components";
+import "../styles/blogPage.css";
+
+import { useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { BlogDetails } from "../components";
+
 
 import { useAppContext } from "../context/appContext";
 
@@ -18,9 +21,12 @@ const BlogPage = () => {
   return (
     <div className="dashboard-page-wrapper page-wrapper">
       <div className="blogs-wrapper">
-        <Blog blog={singleBlog} />
-        </div>
-      <div className="blogs-wrapper"></div>
+        <BlogDetails blog={singleBlog} />
+      </div>
+      <div className="comment-btn-container">
+        <Link className="btn" to={`/add-comment/${id}`}>Add Comment</Link>
+      </div>
+      <div className="comments-container"></div>
     </div>
   );
 };

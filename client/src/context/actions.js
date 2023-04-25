@@ -28,3 +28,9 @@ export const ADD_BLOG_ERROR = "ADD_BLOG_ERROR";
 export const GET_BLOG_BEGIN = "GET_BLOG_BEGIN";
 export const GET_BLOG_SUCCESS = "GET_BLOG_SUCCESS";
 export const GET_BLOG_ERROR = "GET_BLOG_ERROR";
+
+
+// actions to add a comment
+export const ADD_COMMENT_BEGIN = "ADD_COMMENT_BEGIN";
+export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
+export const ADD_COMMENT_ERROR = "ADD_COMMENT_ERROR";
