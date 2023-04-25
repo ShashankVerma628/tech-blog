@@ -1,7 +1,7 @@
 import "../styles/commentPage.css";
 import { useState } from "react";
 import { Alert } from "../components";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useAppContext } from "../context/appContext";
 
@@ -9,6 +9,8 @@ const CommentPage = () => {
   const [commentContent, setCommentContent] = useState("");
 
   const { showAlert, addComment, displayAlert } = useAppContext();
+
+  const navigate = useNavigate();
 
   const { blogId } = useParams();
 
@@ -32,6 +34,9 @@ const CommentPage = () => {
     } else {
       addComment(comment);
       clearForm();
+      setTimeout(() => {
+        navigate(`/blog/${blogId}`);
+      }, 4000);
     }
   };
 

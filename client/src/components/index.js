@@ -7,5 +7,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import Blog from "./Blog";
 import AddBlog from "./AddBlog";
 import BlogDetails from "./BlogDetails";
+import Comment from "./Comment";
 
-export { Navigation, Footer, Logo, FormInput, Alert, ProtectedRoute, Blog, AddBlog, BlogDetails };
+export { Navigation, Footer, Logo, FormInput, Alert, ProtectedRoute, Blog, AddBlog, BlogDetails, Comment };

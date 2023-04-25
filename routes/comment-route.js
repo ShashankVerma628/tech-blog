@@ -7,6 +7,6 @@ import { getComments, addComment } from "../controllers/commentController.js";
 
 
 router.post("/add-comment", authenticateUser, addComment);
-router.post("/get-comment", getComments);
+router.post("/get-comments/:blogId", getComments);
 
 export default router;

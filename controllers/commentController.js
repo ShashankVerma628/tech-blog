@@ -3,7 +3,10 @@ import BadRequestError from "../errors/bad-request.js";
 import Comment from "../models/Comment.js";
 
 const getComments = async (req, res) => {
-    res.send("get comments");
+    const { blogId } = req.params;
+    const comments = await Comment.find({ blogId });
+
+    res.status(StatusCodes.OK).json({ comments, count: comments.length });
 }
 
 const addComment = async (req, res) => {

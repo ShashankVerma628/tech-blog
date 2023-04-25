@@ -1,0 +1,14 @@
+.comment-container {
+    padding: 0 0.4em;
+    border-bottom: 1px solid #000;
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-container .comment-details {
+    display: flex;
+    background-color: #000;
+    color: #fff;
+    gap: 0.5rem;
+    padding: 0.4em;
+}
