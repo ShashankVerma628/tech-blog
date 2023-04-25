@@ -1,6 +1,7 @@
 import StatusCodes from "http-status-codes";
 import BadRequestError from "../errors/bad-request.js";
 import Comment from "../models/Comment.js";
+import User from "../models/User.js";
 
 const getComments = async (req, res) => {
     const { blogId } = req.params;
@@ -22,4 +23,14 @@ const addComment = async (req, res) => {
     res.status(StatusCodes.CREATED).json({ comment });
 }
 
-export { getComments, addComment };
+const getUserComment = async (req, res) => {
+    const { commentId } = req.params;
+    let comment = await Comment.findOne({ _id: commentId });
+
+    const userId = comment.userId;
+
+    const { username } = await User.findOne({ _id: userId });
+    res.status(StatusCodes.OK).json({ username });
+}
+
+export { getComments, addComment, getUserComment };

@@ -244,6 +244,17 @@ const AppProvider = ({ children }) => {
         }
     }
 
+    // get user of a comment
+    const getUserComment = async (commentId) => {
+        try {
+            const { data } = await axios.post(`${backendURL}/api/v1/comment/get-user/${commentId}`);
+            const username = data?.username;
+            return username;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return <appContext.Provider value={{
         ...state,
         displayAlert,
@@ -256,7 +267,8 @@ const AppProvider = ({ children }) => {
         getSingleBlog,
         getUserBlog,
         addComment,
-        getComments
+        getComments,
+        getUserComment
     }}>
         {children}
     </appContext.Provider>

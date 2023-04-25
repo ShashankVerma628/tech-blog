@@ -21,7 +21,7 @@ const BlogPage = () => {
   const handleViewComment = () => {
     setShowComments(true);
     (async () => {
-      console.log(await getComments(id));
+      // console.log(await getComments(id));
       setComments(await getComments(id));
     })();
   };
