@@ -10,7 +10,6 @@ import cors from "cors";
 import connectDB from "./db/connect.js";
 
 // routes
-import homeRouter from "./routes/home-route.js";
 import authRouter from "./routes/auth-route.js";
 import dashRouter from "./routes/dash-route.js";
 import blogRouter from "./routes/blog-route.js";
@@ -21,16 +20,12 @@ import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 import authenticateUser from "./middleware/auth.js";
 
-var corsOptions = {
-    origin: 'http://localhost:3000',
-}
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/v1", homeRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/dashboard", authenticateUser, dashRouter);
-app.use("/api/v1/blog", blogRouter);
+app.use("/api/v1/blogs", blogRouter);
 app.use("/api/v1/comment", commentRouter);
 
 // Your code

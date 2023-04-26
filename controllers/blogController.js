@@ -2,6 +2,11 @@ import Blog from "../models/Blog.js";
 import StatusCodes from "http-status-codes";
 import User from "../models/User.js";
 
+const getAllBlogs = async (req, res) => {
+    const blogs = await Blog.find();
+    res.status(StatusCodes.OK).json({ blogs });
+}
+
 const getBlog = async (req, res) => {
     const blogId = req.params.id;
     const blog = await Blog.find({ _id: blogId });
@@ -22,4 +27,4 @@ const blogUser = async (req, res) => {
     res.status(StatusCodes.OK).json({ username });
 }
 
-export { getBlog, blogUser };
+export { getBlog, blogUser, getAllBlogs };

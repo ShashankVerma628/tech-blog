@@ -50,8 +50,8 @@ const appContext = createContext();
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const backendURL = "https://tech-blog-sand-pi.vercel.app";
-    // const backendURL = "http://localhost:5000";
+    // const backendURL = "https://tech-blog-sand-pi.vercel.app";
+    const backendURL = "http://localhost:5000";
 
     const authDashFetch = axios.create({
         baseURL: `${backendURL}`
@@ -201,7 +201,7 @@ const AppProvider = ({ children }) => {
     const getSingleBlog = async (id) => {
         dispatch({ type: GET_BLOG_BEGIN });
         try {
-            let { data: { blog } } = await axios.post(`${backendURL}/api/v1/blog/${id}`);
+            let { data: { blog } } = await axios.get(`/api/v1/blogs/${id}`);
             blog = blog[0];
             dispatch({ type: GET_BLOG_SUCCESS, payload: { blog } })
         } catch (error) {
@@ -213,7 +213,7 @@ const AppProvider = ({ children }) => {
 
     // to get the user of a blog
     const getUserBlog = async (id) => {
-        const { data } = await axios.post(`${backendURL}/api/v1/blog/user/${id}`);
+        const { data } = await axios.get(`/api/v1/blogs/user/${id}`);
         const { username } = data;
         return username;
     }
