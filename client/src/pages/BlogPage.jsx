@@ -39,7 +39,7 @@ const BlogPage = () => {
       <div className="comments-wrapper">
         {showComments ? (
           <h3>
-            {comments.length} comment{comments.length > 1 ? "s" : ""} found
+            {comments?.length} comment{comments?.length > 1 ? "s" : ""} found
           </h3>
         ) : (
           ""
@@ -54,7 +54,7 @@ const BlogPage = () => {
           </button>
         </span>
         <div className="comments-container">
-          {comments.map((item) => (
+          {comments?.map((item) => (
             <Comment key={item?._id} comment={item} />
           ))}
         </div>

@@ -23,7 +23,7 @@ app.use(cors());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/blogs", blogRouter);
-app.use("/api/v1/comment", commentRouter);
+app.use("/api/v1/comments", commentRouter);
 
 // Your code
 if (process.env.NODE_ENV === "production") {

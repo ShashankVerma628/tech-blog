@@ -5,9 +5,13 @@ import authenticateUser from "../middleware/auth.js";
 import { getComments, addComment, getUserComment } from "../controllers/commentController.js";
 
 
+// get the comments of a blog
+router.get("/:blogId", getComments);
 
-router.post("/add-comment", authenticateUser, addComment);
-router.post("/get-comments/:blogId", getComments);
-router.post("/get-user/:commentId", getUserComment);
+// get the user of a comment
+router.get("/get-user/:commentId", getUserComment);
+
+// add the comment by a authenticated user
+router.post("/", authenticateUser, addComment);
 
 export default router;

@@ -50,9 +50,6 @@ const appContext = createContext();
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const backendURL = "https://tech-blog-sand-pi.vercel.app";
-    // const backendURL = "http://localhost:5000";
-
     const authDashFetch = axios.create({
         baseURL: `/api/v1`
     });
@@ -165,8 +162,8 @@ const AppProvider = ({ children }) => {
             dispatch({ type: GET_USER_BLOGS_SUCCESS, payload: { count, blogs } })
 
         } catch (error) {
-            // logOutUser();
-            console.log(error);
+            logOutUser();
+            // console.log(error);
         }
     }
 
@@ -225,7 +222,7 @@ const AppProvider = ({ children }) => {
     const addComment = async (comment) => {
         dispatch({ type: ADD_COMMENT_BEGIN });
         try {
-            const { data } = await authDashFetch.post("/api/v1/comment/add-comment", comment);
+            const { data } = await authDashFetch.post("/comments", comment);
             dispatch({ type: ADD_COMMENT_SUCCESS });
         } catch (error) {
             if (error.response.status === 401) {
@@ -239,7 +236,7 @@ const AppProvider = ({ children }) => {
     // get comments related to a blog
     const getComments = async (blogId) => {
         try {
-            const { data } = await axios.post(`${backendURL}/api/v1/comment/get-comments/${blogId}`);
+            const { data } = await axios.get(`/api/v1/comments/${blogId}`);
             return data.comments;
         } catch (error) {
             console.log(error);
@@ -249,7 +246,7 @@ const AppProvider = ({ children }) => {
     // get user of a comment
     const getUserComment = async (commentId) => {
         try {
-            const { data } = await axios.post(`${backendURL}/api/v1/comment/get-user/${commentId}`);
+            const { data } = await axios.get(`/api/v1/comments/get-user/${commentId}`);
             const username = data?.username;
             return username;
         } catch (error) {
