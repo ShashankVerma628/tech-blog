@@ -25,7 +25,13 @@ var corsOptions = {
     origin: 'http://localhost:3000',
 }
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
+
+app.use("/api/v1", homeRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/dashboard", authenticateUser, dashRouter);
+app.use("/api/v1/blog", blogRouter);
+app.use("/api/v1/comment", commentRouter);
 
 // Your code
 if (process.env.NODE_ENV === "production") {
@@ -41,16 +47,11 @@ if (process.env.NODE_ENV === "production") {
 }
 // Your code
 
-
-app.use("/api/v1", homeRouter);
-app.use("/api/v1/auth", authRouter);
-app.use("/dashboard", authenticateUser, dashRouter);
-app.use("/api/v1/blog", blogRouter);
-app.use("/api/v1/comment", commentRouter);
-
 // error handler middleware
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
+
+
 
 const port = process.env.PORT || 5000;
 const start = async () => {
