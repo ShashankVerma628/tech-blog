@@ -50,8 +50,8 @@ const appContext = createContext();
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    // const backendURL = "https://tech-blog-sand-pi.vercel.app";
-    const backendURL = "http://localhost:5000";
+    const backendURL = "https://tech-blog-sand-pi.vercel.app";
+    // const backendURL = "http://localhost:5000";
 
     const authDashFetch = axios.create({
         baseURL: `${backendURL}`
