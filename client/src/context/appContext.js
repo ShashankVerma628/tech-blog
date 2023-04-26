@@ -54,7 +54,7 @@ const AppProvider = ({ children }) => {
     // const backendURL = "http://localhost:5000";
 
     const authDashFetch = axios.create({
-        baseURL: `${backendURL}`
+        baseURL: `/api/v1`
     });
 
 
@@ -108,7 +108,7 @@ const AppProvider = ({ children }) => {
     const registerUser = async (currentUser) => {
         dispatch({ type: REGISTER_USER_BEGIN })
         try {
-            const response = await axios.post(`${backendURL}/api/v1/auth/register`, currentUser);
+            const response = await axios.post(`/api/v1/auth/register`, currentUser);
 
             const { user, token } = response.data;
             dispatch({
@@ -132,7 +132,7 @@ const AppProvider = ({ children }) => {
     const loginUser = async (currentUser) => {
         dispatch({ type: LOGIN_USER_BEGIN });
         try {
-            const response = await axios.post(`${backendURL}/api/v1/auth/login`, currentUser);
+            const response = await axios.post(`/api/v1/auth/login`, currentUser);
 
             const { user, token } = response.data;
 
@@ -161,11 +161,12 @@ const AppProvider = ({ children }) => {
     const getAllBlogs = async () => {
         dispatch({ type: GET_USER_BLOGS_BEGIN });
         try {
-            const { data: { count, blogs } } = await authDashFetch.post("/dashboard");
+            const { data: { count, blogs } } = await authDashFetch.post("/blogs/userBlogs");
             dispatch({ type: GET_USER_BLOGS_SUCCESS, payload: { count, blogs } })
 
         } catch (error) {
-            logOutUser();
+            // logOutUser();
+            console.log(error);
         }
     }
 
@@ -182,10 +183,11 @@ const AppProvider = ({ children }) => {
         }
     }
 
+    // to add/create blog by a user
     const addBlog = async (blog) => {
         dispatch({ type: ADD_BLOG_BEGIN });
         try {
-            const { data } = await authDashFetch.post("dashboard/add-blog", blog);
+            const { data } = await authDashFetch.post("/blogs/add-blog", blog);
             dispatch({ type: ADD_BLOG_SUCCESS });
             getAllBlogs();
         } catch (error) {
