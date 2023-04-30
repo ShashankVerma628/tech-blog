@@ -1,7 +1,11 @@
+import Comment from "../models/Comment.js";
 import Blog from "../models/Blog.js";
 import StatusCodes from "http-status-codes";
 import User from "../models/User.js";
 import BadRequestError from "../errors/bad-request.js";
+
+import checkPermissions from "../utils/checkPermissions.js";
+import NotFoundError from "../errors/not-found.js";
 
 const getAllBlogs = async (req, res) => {
     const blogs = await Blog.find();
@@ -48,4 +52,41 @@ const createBlog = async (req, res) => {
     res.status(StatusCodes.CREATED).json({ blog });
 }
 
-export { getBlog, blogUser, getAllBlogs, getBlogs, createBlog };
+const editBlog = async (req, res) => {
+    const { id } = req.params;
+
+    let blog = await Blog.findById(id);
+
+    if (!blog) {
+        throw new NotFoundError(`Could not find the blog with id :  ${id}`);
+    }
+
+    checkPermissions(req.user, blog?.createdBy);
+
+    blog = await Blog.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(StatusCodes.OK).json({ blog });
+}
+
+const deleteBlog = async (req, res) => {
+    const { id } = req.params;
+
+    const blog = await Blog.findById(id);
+
+    if (!blog) {
+        throw new NotFoundError(`Could not find the blog with id : ${id}`);
+    }
+
+    checkPermissions(req.user, blog.createdBy);
+
+    await Blog.findByIdAndDelete(id);
+
+    await Comment.deleteMany({ userId: req.user.userId });
+
+    res.status(StatusCodes.OK).json({ msg: "Blog and its related comments has been deleted" });
+}
+
+export { getBlog, blogUser, getAllBlogs, getBlogs, editBlog, createBlog, deleteBlog };
