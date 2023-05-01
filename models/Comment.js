@@ -16,6 +16,11 @@ const CommentSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Blog",
         required: [true, "Please provide a blog id"]
+    },
+    username: {
+        type: String,
+        required: [true, "Please provide username"],
+        trim: true
     }
 }, { timestamps: true });
 

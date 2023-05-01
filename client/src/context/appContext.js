@@ -85,11 +85,11 @@ const AppProvider = ({ children }) => {
     }
 
     const displayFloatAlert = () => {
-        // console.log("Display float alert");
+        console.log("Display float alert");
     }
 
     const clearFloatAlert = () => {
-        // console.log("clear float alert");
+        console.log("clear float alert");
     }
 
     const addUserToLocalStorage = ({ user, token }) => {
@@ -163,7 +163,6 @@ const AppProvider = ({ children }) => {
 
         } catch (error) {
             logOutUser();
-            // console.log(error);
         }
     }
 
@@ -175,7 +174,6 @@ const AppProvider = ({ children }) => {
             const { blogs } = response.data;
             dispatch({ type: GET_BLOGS_SUCCESS, payload: { blogs } });
         } catch (error) {
-            // console.log(error);
             displayFloatAlert();
         }
     }
@@ -204,18 +202,10 @@ const AppProvider = ({ children }) => {
             blog = blog[0];
             dispatch({ type: GET_BLOG_SUCCESS, payload: { blog } })
         } catch (error) {
-            // console.log(error);
             dispatch({ type: GET_BLOG_ERROR });
         }
         clearFloatAlert();
     };
-
-    // to get the user of a blog
-    const getUserBlog = async (id) => {
-        const { data } = await axios.get(`/api/v1/blogs/user/${id}`);
-        const { username } = data;
-        return username;
-    }
 
 
     // add a comment 
@@ -243,17 +233,6 @@ const AppProvider = ({ children }) => {
         }
     }
 
-    // get user of a comment
-    const getUserComment = async (commentId) => {
-        try {
-            const { data } = await axios.get(`/api/v1/comments/get-user/${commentId}`);
-            const username = data?.username;
-            return username;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     return <appContext.Provider value={{
         ...state,
         displayAlert,
@@ -264,10 +243,8 @@ const AppProvider = ({ children }) => {
         getAllBlogs, // for dashboard
         addBlog,
         getSingleBlog,
-        getUserBlog,
         addComment,
-        getComments,
-        getUserComment
+        getComments
     }}>
         {children}
     </appContext.Provider>
