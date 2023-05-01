@@ -40,6 +40,7 @@ const createBlog = async (req, res) => {
 
 const editBlog = async (req, res) => {
     const { id } = req.params;
+    console.log(id);
 
     let blog = await Blog.findById(id);
 

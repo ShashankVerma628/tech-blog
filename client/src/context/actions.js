@@ -34,3 +34,13 @@ export const GET_BLOG_ERROR = "GET_BLOG_ERROR";
 export const ADD_COMMENT_BEGIN = "ADD_COMMENT_BEGIN";
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
 export const ADD_COMMENT_ERROR = "ADD_COMMENT_ERROR";
+
+// actions to edit a blog
+export const EDIT_BLOG_BEGIN = "EDIT_BLOG_BEGIN";
+export const EDIT_BLOG_SUCCESS = "EDIT_BLOG_SUCCESS";
+export const EDIT_BLOG_ERROR = "EDIT_BLOG_ERROR";
+
+// actions to edit a COMMENT
+export const EDIT_COMMENT_BEGIN = "EDIT_COMMENT_BEGIN";
+export const EDIT_COMMENT_SUCCESS = "EDIT_COMMENT_SUCCESS";
+export const EDIT_COMMENT_ERROR = "EDIT_COMMENT_ERROR";

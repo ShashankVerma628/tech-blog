@@ -6,5 +6,5 @@ import Dashboard from "./Dashboard";
 import ContactUs from "./ContactUs";
 import BlogPage from "./BlogPage";
 import CommentPage from "./CommentPage";
-
-export { Home, Register, Login, ErrorPage, Dashboard, ContactUs, BlogPage, CommentPage };
+import EditBlogPage from "./EditBlogPage";
+export { Home, Register, Login, ErrorPage, Dashboard, ContactUs, BlogPage, CommentPage, EditBlogPage };

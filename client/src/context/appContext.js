@@ -24,7 +24,13 @@ import {
     GET_BLOG_ERROR,
     ADD_COMMENT_BEGIN,
     ADD_COMMENT_SUCCESS,
-    ADD_COMMENT_ERROR
+    ADD_COMMENT_ERROR,
+    EDIT_BLOG_BEGIN,
+    EDIT_BLOG_SUCCESS,
+    EDIT_BLOG_ERROR,
+    EDIT_COMMENT_BEGIN,
+    EDIT_COMMENT_SUCCESS,
+    EDIT_COMMENT_ERROR,
 } from "./actions";
 
 const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -42,7 +48,7 @@ const initialState = {
     singleBlog: null,
     showFloatAlert: false,
     floatAlertType: "",
-    floatAlertText: ""
+    floatAlertText: "",
 }
 
 const appContext = createContext();
@@ -233,6 +239,28 @@ const AppProvider = ({ children }) => {
         }
     }
 
+    // edit blog
+    const editBlog = async (blogId, blog) => {
+        dispatch({ type: EDIT_BLOG_BEGIN });
+        try {
+
+            const { data } = await authDashFetch.patch(`/blogs/${blogId}`, blog);
+
+            dispatch({ type: EDIT_BLOG_SUCCESS });
+        } catch (error) {
+            if (error.response.status === 401) {
+                return;
+            }
+            dispatch({ type: ADD_BLOG_ERROR, payload: { msg: error.response.data.msg } });
+        }
+        clearAlert();
+    }
+
+    // edit comment
+    const editComment = async (commentId) => {
+
+    }
+
     return <appContext.Provider value={{
         ...state,
         displayAlert,
@@ -244,7 +272,9 @@ const AppProvider = ({ children }) => {
         addBlog,
         getSingleBlog,
         addComment,
-        getComments
+        getComments,
+        editBlog,
+        editComment
     }}>
         {children}
     </appContext.Provider>

@@ -20,7 +20,13 @@ import {
     GET_BLOG_ERROR,
     ADD_COMMENT_BEGIN,
     ADD_COMMENT_SUCCESS,
-    ADD_COMMENT_ERROR
+    ADD_COMMENT_ERROR,
+    EDIT_COMMENT_BEGIN,
+    EDIT_COMMENT_SUCCESS,
+    EDIT_COMMENT_ERROR,
+    EDIT_BLOG_BEGIN,
+    EDIT_BLOG_SUCCESS,
+    EDIT_BLOG_ERROR,
 } from "./actions";
 
 import { initialState } from "./appContext";
@@ -221,6 +227,33 @@ const reducer = (state, action) => {
             showAlert: true,
             alertType: "danger",
             alertText: action.payload.msg
+        }
+    }
+
+    if (action.type === EDIT_BLOG_BEGIN) {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }
+
+    if (action.type === EDIT_BLOG_SUCCESS) {
+        return {
+            ...state,
+            isLoading: false,
+            showAlert: true,
+            alertType: "success",
+            alertText: "Blog Edit is successful!, Redirecting...."
+        }
+    }
+
+    if (action.type === EDIT_BLOG_ERROR) {
+        return {
+            ...state,
+            isLoading: false,
+            showAlert: true,
+            alertType: "danger",
+            alertText: "Couldn't edit blog, Please try again later!!"
         }
     }
 }
