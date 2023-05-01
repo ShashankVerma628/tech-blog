@@ -27,6 +27,9 @@ import {
     EDIT_BLOG_BEGIN,
     EDIT_BLOG_SUCCESS,
     EDIT_BLOG_ERROR,
+    DELETE_BLOG_BEGIN,
+    DELETE_BLOG_SUCCESS,
+    DELETE_BLOG_ERROR
 } from "./actions";
 
 import { initialState } from "./appContext";
@@ -254,6 +257,33 @@ const reducer = (state, action) => {
             showAlert: true,
             alertType: "danger",
             alertText: "Couldn't edit blog, Please try again later!!"
+        }
+    }
+
+    if (action.type === DELETE_BLOG_BEGIN) {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }
+
+    if (action.type === DELETE_BLOG_SUCCESS) {
+        return {
+            ...state,
+            isLoading: false,
+            showFloatAlert: true,
+            floatAlertType: "success",
+            floatAlertText: "Blog has been deleted!!"
+        }
+    }
+
+    if (action.type === DELETE_BLOG_ERROR) {
+        return {
+            ...state,
+            isLoading: false,
+            showFloatAlert: true,
+            floatAlertType: "danger",
+            floatAlertText: action.payload.data.msg
         }
     }
 }

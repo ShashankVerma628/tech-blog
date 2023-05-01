@@ -31,6 +31,9 @@ import {
     EDIT_COMMENT_BEGIN,
     EDIT_COMMENT_SUCCESS,
     EDIT_COMMENT_ERROR,
+    DELETE_BLOG_BEGIN,
+    DELETE_BLOG_SUCCESS,
+    DELETE_BLOG_ERROR
 } from "./actions";
 
 const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -256,6 +259,21 @@ const AppProvider = ({ children }) => {
         clearAlert();
     }
 
+    const deleteBlog = async (blogId) => {
+        dispatch({ type: DELETE_BLOG_BEGIN });
+        try {
+            const { data } = await authDashFetch.delete(`/blogs/${blogId}`);
+
+            dispatch({ type: DELETE_BLOG_SUCCESS })
+
+        } catch (error) {
+            if (error.response.status === 401) {
+                return;
+            }
+            dispatch({ type: DELETE_BLOG_ERROR, payload: { msg: error.response.data.msg } })
+        }
+    }
+
     // edit comment
     const editComment = async (commentId) => {
 
@@ -274,7 +292,8 @@ const AppProvider = ({ children }) => {
         addComment,
         getComments,
         editBlog,
-        editComment
+        editComment,
+        deleteBlog
     }}>
         {children}
     </appContext.Provider>
