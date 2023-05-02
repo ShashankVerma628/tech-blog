@@ -33,7 +33,10 @@ import {
     EDIT_COMMENT_ERROR,
     DELETE_BLOG_BEGIN,
     DELETE_BLOG_SUCCESS,
-    DELETE_BLOG_ERROR
+    DELETE_BLOG_ERROR,
+    DELETE_COMMENT_BEGIN,
+    DELETE_COMMENT_ERROR,
+    DELETE_COMMENT_SUCCESS
 } from "./actions";
 
 const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -275,8 +278,28 @@ const AppProvider = ({ children }) => {
     }
 
     // edit comment
-    const editComment = async (commentId) => {
+    const editComment = async (commentId, commentContent) => {
+        dispatch({ type: EDIT_COMMENT_BEGIN });
+        try {
+            const { data } = await authDashFetch.patch(`/comments/${commentId}`, commentContent);
+            dispatch({ type: EDIT_COMMENT_SUCCESS });
+        } catch (error) {
+            dispatch({ type: EDIT_COMMENT_ERROR, payload: { msg: error.response.data.msg } });
 
+        }
+        clearAlert();
+    }
+
+    // delete comment
+    const deleteComment = async (commentId) => {
+        dispatch({ type: DELETE_COMMENT_BEGIN });
+        try {
+            const { data } = await authDashFetch.delete(`/comments/${commentId}`);
+            dispatch({ type: DELETE_COMMENT_SUCCESS });
+        } catch (error) {
+            dispatch({ type: DELETE_COMMENT_ERROR, payload: { msg: error.response.data.msg } });
+        }
+        clearFloatAlert();
     }
 
     return <appContext.Provider value={{
@@ -293,7 +316,8 @@ const AppProvider = ({ children }) => {
         getComments,
         editBlog,
         editComment,
-        deleteBlog
+        deleteBlog,
+        deleteComment
     }}>
         {children}
     </appContext.Provider>

@@ -29,7 +29,10 @@ import {
     EDIT_BLOG_ERROR,
     DELETE_BLOG_BEGIN,
     DELETE_BLOG_SUCCESS,
-    DELETE_BLOG_ERROR
+    DELETE_BLOG_ERROR,
+    DELETE_COMMENT_BEGIN,
+    DELETE_COMMENT_SUCCESS,
+    DELETE_COMMENT_ERROR
 } from "./actions";
 
 import { initialState } from "./appContext";
@@ -284,6 +287,60 @@ const reducer = (state, action) => {
             showFloatAlert: true,
             floatAlertType: "danger",
             floatAlertText: action.payload.data.msg
+        }
+    }
+
+    if (action.type === EDIT_COMMENT_BEGIN) {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }
+
+    if (action.type === EDIT_COMMENT_SUCCESS) {
+        return {
+            ...state,
+            isLoading: false,
+            showAlert: true,
+            alertType: "success",
+            alertText: "Comment has been edited!! Redirecting..."
+        }
+    }
+
+    if (action.type === EDIT_COMMENT_ERROR) {
+        return {
+            ...state,
+            isLoading: false,
+            showAlert: true,
+            alertType: "danger",
+            alertText: action.payload.data.msg
+        }
+    }
+
+    if (action.type === DELETE_COMMENT_BEGIN) {
+        return {
+            ...state,
+            isLoading: true,
+        }
+
+    }
+    if (action.type === DELETE_COMMENT_SUCCESS) {
+        return {
+            ...state,
+            isLoading: false,
+            floatAlertType: "success",
+            showFloatAlert: true,
+            floatAlertText: "Comment has been deleted!!"
+        }
+    }
+
+    if (action.type === DELETE_COMMENT_ERROR) {
+        return {
+            ...state,
+            isLoading: false,
+            showFloatAlert: true,
+            floatAlertText: action.payload.data.msg,
+            floatAlertType: "danger"
         }
     }
 }
