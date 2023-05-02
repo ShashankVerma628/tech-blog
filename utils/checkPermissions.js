@@ -5,7 +5,9 @@ const checkPermissions = (user, resourceUserId) => {
         return;
     }
 
-    throw new UnauthenticatedError("You are not authorized to edit this post");
+    console.log(user);
+
+    throw new UnauthenticatedError("You are not authorized for this action");
 }
 
 export default checkPermissions;
